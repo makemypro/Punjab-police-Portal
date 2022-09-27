@@ -1,0 +1,115 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+	{% block body %}
+	<link href="{% static 'myapp/css/checkout.css' %}" rel="stylesheet">
+	
+<section id="center" class="clearfix center_shop">
+<div class="container">
+ <div class="row">
+   <div class="center_shop_1 clearfix">
+    <div class="col-sm-6">
+	 <div class="center_shop_1l clearfix">
+	  <h3 class="mgt">Checkout</h3>
+	 </div>
+	</div>
+	<div class="col-sm-6">
+	 <div class="center_shop_1r text-right clearfix">
+	  <h5><a class="col_2" href="#">Home</a> / <span>Checkout</span></h5>
+	 </div>
+	</div>
+   </div>
+ </div>
+</div>
+</section>
+
+<section id="checkout" class="clearfix">
+ <div class="container">
+  <div class="row">
+   <div class="checkout_1 clearfix">
+    <div class="col-sm-8">
+	  <div class="checkout_1l clearfix">
+		{% csrf_token %}
+		
+	   <h3 class="mgt">Make Your Checkout Here</h3>
+	   <p>Please register in order to checkout more quickly</p>
+	  </div><br>
+	  <form method="post" action="{% url 'checkout' %}">	 
+		 <div class="checkout_1l1 clearfix">
+       <div class="col-sm-6 space_left">
+	    <h5>First Name <span class="col_1">*</span></h5>
+		<input class="form-control" type="text" name = "first_name" value="first_name" required="first_name"  >
+	   </div>
+	   <div class="col-sm-6 space_left">
+	    <h5>Last Name <span class="col_1">*</span></h5>
+		<input class="form-control" type="text" name = "last_name" required="last_name">
+	   </div>
+	  </div>
+	  <div class="checkout_1l1 clearfix">
+       <div class="col-sm-6 space_left">
+	    <h5>Email Address <span class="col_1">*</span></h5>
+		<input class="form-control" type="email" name = 'email' required="email">
+	   </div>
+	   <div class="col-sm-6 space_left">
+	    <h5>Phone No <span class="col_1">*</span></h5>
+		<input class="form-control" type="text" name = "phone" required="phone">
+	   </div>
+	  </div>
+	  <div class="checkout_1l1 clearfix">
+       <div class="col-sm-6 space_left">
+	    <h5>Postal/Zip Code <span class="col_1">*</span></h5>
+		<input class="form-control" type="text" name="zip">
+	   </div>
+	   <div class="col-sm-6 space_left">
+	    <h5>City <span class="col_1">*</span></h5>
+		<select class="form-control" name ="city" required="city">
+				 <option>Lahore</option>
+				 <option>Karachi</option>
+				 <option>Multan</option>
+				 <option>Gujranwala</option>
+				 <option>Fasilabad</option>
+			 </select>
+	   </div>
+	  </div>
+	  <div class="checkout_1l1 clearfix">
+       <div class="col-sm-6 space_left">
+	    <h5>Address  <span class="col_1">*</span></h5>
+		<input class="form-control" type="text" name = 'address'>
+	   </div>
+	          <div class="col-sm-6 space_left">
+	    <h5>Special Instruction <span class="col_1">*</span></h5>
+		<textarea class="form-control" cols="12" rows="12" name="instruction"></textarea>
+			  
+	   </div>
+	   
+	  </div>
+	  
+	</div>
+	 <div class="col-sm-4">
+       <div class="checkout_1r clearfix">
+	     <h4 class="mgt">CART TOTALS</h4>
+	     <hr class="hr_1">
+		<h5>Sub Total <span class="pull-right">110,000</span></h5>
+		<h5>(+) Shipping <span class="pull-right">1000</span></h5>
+		<hr class="hr_2"> 
+		<h5>Total <span class="pull-right">111,000</span></h5><br>
+		 <h4>PAYMENTS</h4>
+	     <hr class="hr_1">
+		 <p><input type="radio" name="payment" value=""> <span>Check Payments</span></p>
+		 <p><input type="radio" name="payment" value="onDelivery"> <span>Cash On Delivery</span></p>
+		 <h6><a class="" href="#"><input type="submit" class="button"  value ="PROCEED TO CHECKOUT"></a></h6>
+		</form>
+	   </div>
+	  </div>
+   </div>
+  </div>
+ </div>
+</section>
+<script>
+	$(document).ready(function(){
+    $('input:checkbox').click(function() {
+        $('input:checkbox').not(this).prop('checked', false);
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,211 @@
+{% extends 'myapp/base.html'%}
+    {% block title%}
+	
+	{% endblock %}
+	{% load static %}
+	
+	<style>
+    	img{
+
+    		height: 140px !important;
+    	}
+    	.btn{
+
+    		border-radius: 20px;
+    		width: 100%;
+    		height: 35%;
+    		background-color:#ea1c2600;
+    		border:1px solid #a9060d;
+
+    		
+    	}
+    	.btn:hover{
+    		background-color: #a9060d;
+    		color: white;
+    	}
+    </style>
+{% block body%}
+<link href="{% static 'myapp/css/shop.css' %}" rel="stylesheet">	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <section id="center" class="clearfix center_shop">
+<div class="container">
+ <div class="row">
+   <div class="center_shop_1 clearfix">
+    <div class="col-sm-6">
+	 <div class="center_shop_1l clearfix">
+	  <h3 class="mgt">Product List</h3>
+	 </div>
+	</div>
+
+	<div class="col-sm-6">
+	 <div class="center_shop_1r text-right clearfix">
+	  <h5><a class="col_2" href="#">Home</a> / <a class="col_2" href="#">Shop</a> / <span>Product</span></h5>
+	 </div>
+	</div>
+   </div>
+ </div>
+</div>
+</section>
+ -->
+ <nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+	  <li class="breadcrumb-item"><a href="{% url 'home'%}">Home</a></li>
+	  <li class="breadcrumb-item active" aria-current="page">Product List</li>
+	</ol>
+  </nav>
+  
+				 <h2 class="mgt" style="margin-left: 2%;">Product List</h2>
+				 <hr>
+  
+  <section id="shop">
+  <div class="container">
+   <div class="row">
+	 <div class="shop_1 clearfix">
+	  <div class="col-sm-3">
+		<div class="shop_1lm clearfix">
+		  <!-- <div class="product_1l clearfix">
+		 <h4 class="mgt">CATEGORIES</h4>
+		 <hr>
+		 <h5><input type="checkbox"> <a href="detail.html">Motor Cycle </a></h5>
+		 <h5><input type="checkbox"> <a href="detail.html">Engine Parts</a></h5>
+		 <h5><input type="checkbox"> <a href="detail.html">Electronic Products</a></h5>
+		 <h5><input type="checkbox"> <a href="detail.html">Tyre </a></h5>
+		 <h5><input type="checkbox"> <a href="detail.html"></a></h5>
+		</div> -->
+		<div class="product_1l clearfix result">
+		 <h4 class="mgt">MANUFACTURER</h4>
+		 <hr>
+		 <h5><input type="checkbox" class="processor"> <a href="detail.html">Honda </a></h5>
+		 <h5><input type="checkbox" class="processor"> <a href="detail.html">YAMAHA</a></h5>
+		 <h5><input type="checkbox" class="processor"> <a href="detail.html">ROAD PRINCE</a></h5>
+		 <h5><input type="checkbox" class="processor"> <a href="detail.html">UNIQUE</a></h5>
+		 <h5><input type="checkbox" class="processor"> <a href="detail.html">DHOOM</a></h5>
+		</div>
+			 </div>
+	  </div>
+	  <div class="col-sm-9">
+	   <div class="product_1rm clearfix">
+		<div class="product_1r clearfix">
+				<h5 class="mgt">Show :</h5>
+			   <select class="form-control">
+				   <option>10</option>
+				   <option>20</option>
+				   <option>30</option>
+				   <option>40</option>
+				   <option>50</option>
+			   </select>
+			   <h5 class="mgt">  Sort By :</h5>
+			   <select class="form-control">
+				   <option>Default</option>
+				   <option>CD-70</option>
+				   <option>CD-125</option>
+				   <option>CD-150</option>
+			   </select>
+			   <button type="submit"> Search</button>
+		</div>
+		<div class="sell_o_1 clearfix res">
+						  {% for product in products %}
+				   <div class="col-sm-4">
+							  <div class="arriv_2m clearfix">
+								<div class="arriv_2m1 clearfix">
+								  <a href="{% url 'detail' %}">
+									<img src="/media/{{product.image}}" alt="abc" class="iw" width="400px" , height="200px">
+								</a>
+								</div>
+								<div class="arriv_2m3 clearfix">
+								 <h4 class="bold mgt" data-category="honda">{{product.name}}</h4>
+								 <h4 class="normal">
+								 <span class="span_3 col_1">{{product.price}}/<strong>Rs.</strong></span> 
+								 </h4>
+								 <br><a href="{% url 'detail' product.id %}"><button class="btn">Shop Now</button></a>
+								</div>
+							  </div>
+						  </div>
+						  {% endfor %}
+						  				  </div>
+		
+			  
+		<div class="product_1_last text-center clearfix">
+		<div class="col-sm-12">
+		 <ul>
+		  <li class="act"><a href="detail.html">1</a></li>
+		  <li><a href="detail.html">2</a></li>
+		  <li><a href="detail.html">3</a></li>
+		  <li><a href="detail.html">4</a></li>
+		  <li><a href="detail.html">5</a></li>
+		  <li><a href="detail.html">6</a></li>
+		  <li><a href="detail.html"><i class="fa fa-chevron-right"></i></a></li>
+		 </ul>
+		</div>
+	   </div>
+	   </div>
+	  </div>
+	 </div>
+   </div>
+  </div>
+  </section>
+<script>
+// function change() {
+//         let results = Array.from(document.querySelectorAll('.result > div')),
+//             modelsChecked = document.querySelectorAll('.filter input.models:checked'),
+//             processorsChecked = document.querySelectorAll('.filter input.processors:checked');
+//         // Hide all results
+//         results.forEach(function(results) {
+//             result.style.display = 'none';
+//         });
+//         // Filter results to only those that meet ALL requirements:        
+
+//         filterModelsOrProcessors(modelsChecked);
+
+//         if (processorsChecked.length != 0) {
+//             filterModelsOrProcessors(processorsChecked);
+//         }
+
+//         function filterModelsOrProcessors(modelsOrProcessorsChecked) {
+//             results = Array.from(modelsOrProcessorsChecked).reduce(function(sum, input) {
+//                 const attrib = input.getAttribute('rel');
+//                 return sum.concat(results.filter(function(result) {
+//                     return result.classList.contains(attrib);
+//                 }));
+//             }, []);
+//         }
+//         // Show those filtered results:
+//         results.forEach(function(result) {
+//             result.style.display = 'block';
+//         });
+//     }
+//     change();
+jQuery(function(){ // document ready to process
+
+jQuery('div').find("input").on('change',function(){ // when the input changes
+  let selected = []; // init a selected array
+  jQuery('div').find("input").each(function(){ // on every input 
+    if(jQuery(this).is(":checked")){ // check if the input is checked
+      selected.push(jQuery(this).val()); // push the selected value to selected array
+    }
+  })
+  if(!selected.length){ // if no items selected
+  jQuery("div.res div").show(); // show all
+  return; // stop code execution
+  
+  }
+  jQuery("div.res div div div a img div h4").hide(); // hide all divs
+  jQuery("v").each(function(){ // take each div
+    const category = jQuery(this).attr('data-category'); // capture the attribute category
+    const categorySplitted = category.split(' '); // split each category by space
+    categorySplitted.forEach((cat)=>{ // foreach category array
+      if(selected.indexOf(cat) !== -1){ // cross check with selected categories; if selected
+      jQuery(this).show(); // show the div
+      }
+    });
+    
+  });
+});
+
+});
+
+    </script>
+
+</script>
+{% endblock%}
+</html>

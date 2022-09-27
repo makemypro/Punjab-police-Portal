@@ -1,0 +1,47 @@
+{% extends  'myapp/base.html' %}
+{% block body %}
+{% load static %}
+<link href="{% static 'myapp/css/about.css' %}" rel="stylesheet">	
+<section id="center" class="clearfix center_shop">
+<div class="container">
+ <div class="row">
+   <div class="center_shop_1 clearfix">
+    <div class="col-sm-6">
+	 <div class="center_shop_1l clearfix">
+	  <h3 class="mgt">About Us</h3>
+	 </div>
+	</div>
+	<div class="col-sm-6">
+	 <div class="center_shop_1r text-right clearfix">
+	  <h5><a class="col_2" href="{% url 'home' %}">Home</a> / <span>About Us</span></h5>
+	 </div>
+	</div>
+   </div>
+ </div>
+</div>
+</section>
+
+<section id="about">
+ <div class="container">
+  <div class="row">
+    <div class="about_1 clearfix">
+	 <div class="col-sm-6">
+	  <div class="about_1l clearfix">
+	   <h5 class="col_1 mgt">We believe in less but better</h5>
+	   <h3>Welcome to Online Bike Portal and Spare Parts! The purpose of our service is to create the portal for the user ease where the user can access our portal to purchase the <strong>MotorCycle</strong> or its Spare parts at home without any difficulty or reasonable price.</h3>
+	   <p>We also have added the Extra feature of <strong>Online Mechanic Service</strong> for our user so, you can access the mechanic service at any place whenever you need</p>
+	   <p><strong>message:</strong>UMT Student</p><br>
+	   <blockquote><p class="mgt">We’ve been able to create a platform that customers can get their hands on whenever they want. It is always our intention to serve you.</p></blockquote>
+	  </div>
+	 </div>
+	 <div class="col-sm-6">
+	  <div class="about_1r clearfix">
+	   <img src="{% static 'myapp/img/abb.jpg' %}" class="iw" alt="abc">
+	  </div>
+	 </div>
+	</div>
+	</div>
+ </div>
+</section>
+
+{% endblock%}

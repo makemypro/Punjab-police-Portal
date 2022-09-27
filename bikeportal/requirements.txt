@@ -1,0 +1,2 @@
+https://books.agiliq.com/projects/django-admin-cookbook/en/latest/imagefield.html
+https://books.agiliq.com/projects/django-admin-cookbook/en/latest/imagefield.html

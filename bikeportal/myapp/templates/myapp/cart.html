@@ -1,0 +1,143 @@
+{% extends 'myapp/base.html' %}
+{% load cart_tag %}
+
+	{% load static %}
+{% block body %}
+	<link href="{% static 'myapp/css/cart.css' %}" rel="stylesheet">
+
+
+<section id="center" class="clearfix center_shop">
+<div class="container">
+ <div class="row">
+   <div class="center_shop_1 clearfix">
+    <div class="col-sm-6">
+	 <div class="center_shop_1l clearfix">
+	  <h3 class="mgt">Shopping Cart</h3>
+	 </div>
+	</div>
+	<div class="col-sm-6">
+	 <div class="center_shop_1r text-right clearfix">
+	  <h5><a class="col_2" href="#">Home</a> / <span>Shopping Cart</span></h5>
+	 </div>
+	</div>
+   </div>
+ </div>
+</div>
+</section>
+
+<section id="cart_page" class="clearfix cart">
+ <div class="container">
+  <div class="row">
+    <div class="cart_1 clearfix">
+	 <div class="col-sm-12">
+	  <p class="mgt"><a href="#">Home</a> / <a href="#">Shopping Cart</a></p>
+	 </div>
+	</div>
+	<div class="cart_2 clearfix">
+	 <div class="col-sm-6">
+	  <h3 class="bold col_1">MY CART</h3>
+	 </div>
+	 <div class="col-sm-6">
+      <h5 class="text-right"><a href="#">Continue Shopping</a></h5>
+	 </div>
+	</div>
+	
+
+	<div class="cart_3 clearfix">
+	 <div class="col-sm-8">
+	  <div class="cart_3l clearfix">
+	   <h5 class="mgt">PRODUCT</h5>
+	  </div>
+	  {% for key,value in request.session.cart.items %}
+	  <div class="cart_3l1 clearfix">
+	   <div class="col-sm-3 space_left">
+	    <div class="cart_3l1i clearfix">
+		 <a href="#"><img src="{{value.image}}" alt="abc" class="iw"></a></div>
+	   </div>
+
+	   <div class="col-sm-9">
+
+	    <div class="cart_3l1i1 clearfix">
+		 <h5 class="mgt"><a href="#">{{value.name}} </a></h5>
+		 <h5 class="normal">{{value.color}}</h5>
+		 <h6>Vendor</h6>
+		 <h4>{{value.price}}</h4>
+		 <h5>{{value.quantity}}</h5>
+		</div>
+		<div class="cart_3l1i2 clearfix">
+         <div class="input-group number-spinner">
+				<span class="input-group-btn">
+					<button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+				</span>
+				<input type="text" class="form-control text-center" value="{{value.quantity}}">
+				<span class="input-group-btn">
+					<button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+				</span>			</div>
+		 <h6 class="mgt"><a class="button_1 mgt" href="{% url 'item_clear' value.product_id %}">REMOVE</a></h6>
+         <h6 class="mgt"><a class="button mgt" href="{% url 'cart_clear' %}">UPDATE CART</a></h6>
+		
+		</div>
+	   </div>
+	  </div>
+	 
+	   <!-- source bp/bin/active -->
+	   {% endfor %}  
+	 </div>
+	<div class="col-sm-4">
+	  <div class="cart_3r clearfix">
+	   <h5 class="mgt head_1">SUBTOTAL</h5>
+	   <h3 class="text-center">{{request.session.t_total}}</h3>
+	   <hr>
+	   <h6>Additional comments</h6>
+	   <textarea class="form-control"></textarea>
+	   <h5 class="text-center"><a class="button" href="{% url 'checkout' %}">PROCEED TO CHECKOUT</a></h5><br>
+	   <h5>GET SHIPPING ESTIMATES</h5>
+	   <hr>
+	  </div>
+	  <div class="cart_3r1 clearfix">
+	    <h6>Country</h6>
+	   <select class="form-control" id="subject" name="subject">
+		<option>Pakistan</option>
+		<option>India</option>
+		<option>England</option>
+		<option>Africa</option>
+		</select><br>
+		<h6>State</h6>
+	   <select class="form-control" id="subject" name="subject">
+		<option>Lahore</option>
+		<option>Faislabad</option>
+		<option>Karachi</option>
+		<option>Multan</option>
+		<option>Gujranwala</option>
+		</select><br>
+	  <h6>Postal/Zip Code</h6>
+	   <input class="form-control" type="text">
+	   <h5 class="text-center"><a class="button_1" href="#">CALCULATE SHIPPING</a></h5>
+	   </div>
+	 </div>
+	</div>
+  </div>
+ </div>	 
+</section>
+
+
+
+<script>
+	$(document).on('click', '.number-spinner button', function () {    
+	var btn = $(this),
+		oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+		newVal = 0;
+	
+	if (btn.attr('data-dir') == 'up') {
+		newVal = parseInt(oldValue) + 1;
+	} else {
+		if (oldValue > 1) {
+			newVal = parseInt(oldValue) - 1;
+		} else {
+			newVal = 1;
+		}
+	}
+	btn.closest('.number-spinner').find('input').val(newVal);
+});
+	</script>
+{% endblock %}
