@@ -59,6 +59,7 @@ class Product(models.Model):
         def __init__(self):
             self.shop = Shop.name
             print(self.shop)
+
     # @classmethod
     # def get_shop(cls,request = None):
     #     username = request.user
@@ -75,8 +76,11 @@ class Product(models.Model):
     #     super(Product,self).save(request,*args,**kwargs)
     # def get_shop(self, request):
     #     return Shop.objects.get(user__username=request.user) 
-    def update_quantity(self, qty=None, product_id=None):
-        self.quantity = self.quantity - qty
+    def update_quantity(self):
+        for key, value in request.session['cart'].items():
+            prod = Product.objects.get(id=value['prod_id'])
+            quantity =prod.quantity- value['quantity']
+            prod.update(quantity=quantity)
         if self.quantity ==0:
             self.availability = False
         return self.quantity
@@ -105,6 +109,7 @@ class Rating(models.Model):
     rating = models.IntegerField()
     product = models.ForeignKey(Product, on_delete= models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 from django.template.loader import render_to_string
 class order_detail(models.Model):

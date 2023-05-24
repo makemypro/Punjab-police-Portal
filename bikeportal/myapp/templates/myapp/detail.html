@@ -105,7 +105,11 @@
 					<button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
 				</span>			</div>
 		 <div class="pd_n1 clearfix">
+			{% if selected_product.availability %}
 		  		<h4><a href=" {% url 'cart_add' selected_product.id %}" class="button" href="#">ADD TO CART</a></h4>
+				{% else %}
+				<h4><a href="" class="button" href="#">ADD TO CART</a></h4>
+				{% endif %}
 			</div>
 
 		<ul class="social-network social-circle">

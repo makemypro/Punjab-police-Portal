@@ -108,10 +108,12 @@ def cart(request):
     total= 0
     cart = Cart(request)
     print("---------->",request.session['cart'])
-    for key, value in request.session['cart'].items():
-        total = total + (float(value['price']) * value['quantity'])
+    if cart:
+        for key, value in request.session['cart'].items():
+            total = total + (float(value['price']) * value['quantity'])
+    else:
+        total = 0.0    
     request.session['t_total'] = total
-
     return render(request, 'myapp/cart.html')
 
 @csrf_exempt
@@ -142,6 +144,7 @@ def checkout(request):
         phone_number = phone_number, zip_code=zip_code, city=city, address=address,delivery_instruction= delivery_inststruction, user=request.user)
         instance = order.save()
         order.send_mail(email,{'cart':items,'total_p':total_price})
+        Product.update_quantity()
         cart = Cart(request)
         cart.clear()
         return HttpResponse(f'Your Order against {order_id} has been successfully added. Thanks to become our valuable customer!!')
