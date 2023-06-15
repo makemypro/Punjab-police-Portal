@@ -29,7 +29,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         extra_kwargs = {
             'first_name': {'required': True},
-            'last_name': {'required': True}
+            'last_name': {'required': True},
+            'password': {'write_only': True}
         }
 
     def validate(self, attrs):
@@ -49,3 +50,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class DistanceMatrixSerializer(serializers.Serializer):
+    origin = serializers.CharField()
+    destinations = serializers.CharField()
+    latitude = serializers.FloatField(required=False, allow_null=True)
+    longitude = serializers.FloatField(required=False, allow_null=True)
