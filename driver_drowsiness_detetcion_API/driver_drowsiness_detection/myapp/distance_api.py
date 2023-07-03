@@ -9,11 +9,17 @@ class DistanceMatrixAPI:
         }
         self.base_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
 
-    def get_distance_matrix(self, origin, destination):
+    def get_distance_matrix(self, origin, destination=None, lat_long=None, place_id=None):
+        des = None
+        if place_id:
+            des = place_id
+        elif destination:
+            des = destination
+
         params = {
             "key": "AIzaSyBeBsBzLYbb6-GEY_pMFjwcYpTXTQTO0YU",
             "origins": origin,
-            "destinations": destination
+            "destinations": des if des else lat_long
         }
         payload = {}
         headers = {

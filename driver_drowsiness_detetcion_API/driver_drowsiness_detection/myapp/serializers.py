@@ -7,10 +7,9 @@ from django.contrib.auth.password_validation import validate_password
 
 
 class UserSerializer(serializers.ModelSerializer):
-
-  class Meta:
-    model = User
-    fields = ["id", "first_name", "last_name", "username"]
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "username"]
 
 
 # Serializer to Register User
@@ -54,6 +53,17 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 class DistanceMatrixSerializer(serializers.Serializer):
     origin = serializers.CharField()
-    destinations = serializers.CharField()
+    destination = serializers.CharField(required=False, allow_null=True)
     latitude = serializers.FloatField(required=False, allow_null=True)
     longitude = serializers.FloatField(required=False, allow_null=True)
+    city = serializers.CharField(required=False, allow_null=True, default='Lahore')
+    place_id = serializers.CharField(required=False, allow_null=True)
+
+    def validate(self, attrs):
+
+        if not attrs.get('destination') and not attrs.get('latitude') and not attrs.get('place_id'):
+            raise ValueError('Either destination or lat long is required!')
+        if attrs.get('latitude') and attrs.get('longitude'):
+            attrs['lat_long'] = f'{attrs["latitude"]},{attrs["longitude"]}'
+
+        return attrs

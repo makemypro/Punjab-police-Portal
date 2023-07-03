@@ -1,8 +1,7 @@
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
-from rest_framework import permissions
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 
 from django.contrib.auth import login
@@ -14,8 +13,8 @@ from knox.models import AuthToken
 from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
 
+from .drowsiness_detection_ml.drowsiness_detetction.drowsiness_detection import Read_Frame
 from .serializers import UserSerializer, RegisterSerializer, DistanceMatrixSerializer
-from drowsiness_detection_ml.drowsiness_detetction.drowsiness_detection import Read_Frame
 
 
 from django.contrib.auth.models import User
@@ -47,7 +46,7 @@ class RegisterUserAPIView(generics.CreateAPIView):
 
 
 class LoginAPI(KnoxLoginView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
         serializer = AuthTokenSerializer(data=request.data)
@@ -58,23 +57,25 @@ class LoginAPI(KnoxLoginView):
 
 
 class DriverAPIView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         print("Request----------------->")
         if request.query_params.get('is_detect'):
             Read_Frame()
-        return Response({"OK": 2})
+        return Response(status=200)
 
 
 class DistanceMatrixAPIView(APIView):
-
-    permission_classes = (AllowAny,)
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         serializer = DistanceMatrixSerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
         origin = serializer.validated_data.get('origin')
-        destination = serializer.validated_data.get('destinations')
+        destination = serializer.validated_data.get('destination')
         api = DistanceMatrixAPI()
         result = api.get_distance_matrix(origin, destination)
         if result:
