@@ -25,8 +25,10 @@ class UserDetailAPI(APIView):
     permission_classes = (AllowAny,)
 
     def get(self, request, *args, **kwargs):
-        user = request.user.id
+        user = request.user
+
         serializer = UserSerializer(user)
+
         return Response(serializer.data)
 
 
